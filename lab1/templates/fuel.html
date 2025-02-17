@@ -1,75 +1,128 @@
 <!DOCTYPE html>
-<html>
+<html lang="uk">
   <head>
-    <meta charset="utf-8" />
+    <meta charset="UTF-8" />
     <title>Калькулятор Твердого Палива</title>
+    <!-- Підключення Bootstrap 5 з CDN -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        background-color: #f8f9fa;
+      }
+      .container {
+        max-width: 600px;
+      }
+    </style>
   </head>
   <body>
-    <h1>Калькулятор Твердого Палива</h1>
-    <form method="post" action="/fuel">
-      <label
-        >H (Водень): <input type="text" name="H" value="{{printf "%.2f"
-        .Input.H}}"></label
-      ><br />
-      <label
-        >C (Вуглець): <input type="text" name="C" value="{{printf "%.2f"
-        .Input.C}}"></label
-      ><br />
-      <label
-        >S (Сірка): <input type="text" name="S" value="{{printf "%.2f"
-        .Input.S}}"></label
-      ><br />
-      <label
-        >N (Азот): <input type="text" name="N" value="{{printf "%.2f"
-        .Input.N}}"></label
-      ><br />
-      <label
-        >O (Кисень): <input type="text" name="O" value="{{printf "%.2f"
-        .Input.O}}"></label
-      ><br />
-      <label
-        >W (Волога): <input type="text" name="W" value="{{printf "%.2f"
-        .Input.W}}"></label
-      ><br />
-      <label
-        >A (Зола): <input type="text" name="A" value="{{printf "%.2f"
-        .Input.A}}"></label
-      ><br />
-      <input type="submit" value="Обчислити" />
-    </form>
+    <div class="container py-5">
+      <h1 class="text-center mb-4">Калькулятор Твердого Палива</h1>
+      <form
+        method="post"
+        action="/fuel"
+        class="border p-4 rounded bg-white shadow-sm"
+      >
+        <div class="mb-3">
+          <label for="inputH" class="form-label">H (Водень)</label>
+          <input type="text" class="form-control" id="inputH" name="H"
+          value="{{printf "%.2f" .Input.H}}">
+        </div>
+        <div class="mb-3">
+          <label for="inputC" class="form-label">C (Вуглець)</label>
+          <input type="text" class="form-control" id="inputC" name="C"
+          value="{{printf "%.2f" .Input.C}}">
+        </div>
+        <div class="mb-3">
+          <label for="inputS" class="form-label">S (Сірка)</label>
+          <input type="text" class="form-control" id="inputS" name="S"
+          value="{{printf "%.2f" .Input.S}}">
+        </div>
+        <div class="mb-3">
+          <label for="inputN" class="form-label">N (Азот)</label>
+          <input type="text" class="form-control" id="inputN" name="N"
+          value="{{printf "%.2f" .Input.N}}">
+        </div>
+        <div class="mb-3">
+          <label for="inputO" class="form-label">O (Кисень)</label>
+          <input type="text" class="form-control" id="inputO" name="O"
+          value="{{printf "%.2f" .Input.O}}">
+        </div>
+        <div class="mb-3">
+          <label for="inputW" class="form-label">W (Волога)</label>
+          <input type="text" class="form-control" id="inputW" name="W"
+          value="{{printf "%.2f" .Input.W}}">
+        </div>
+        <div class="mb-3">
+          <label for="inputA" class="form-label">A (Зола)</label>
+          <input type="text" class="form-control" id="inputA" name="A"
+          value="{{printf "%.2f" .Input.A}}">
+        </div>
+        <button type="submit" class="btn btn-primary w-100">Обчислити</button>
+      </form>
 
-    {{if .Error}}
-    <p style="color: red">Помилка: {{.Error}}</p>
-    {{end}} {{if .Results}}
-    <h2>Результати:</h2>
-    <h3>Склад сухої маси:</h3>
-    <ul>
-      <li>H: {{printf "%.3f" .Results.SDry.H}}</li>
-      <li>C: {{printf "%.3f" .Results.SDry.C}}</li>
-      <li>S: {{printf "%.3f" .Results.SDry.S}}</li>
-      <li>N: {{printf "%.3f" .Results.SDry.N}}</li>
-      <li>O: {{printf "%.3f" .Results.SDry.O}}</li>
-      <li>A: {{printf "%.3f" .Results.SDry.A}}</li>
-      <li>W: 0</li>
-    </ul>
-    <h3>Склад горючої маси:</h3>
-    <ul>
-      <li>H: {{printf "%.3f" .Results.SCombustible.H}}</li>
-      <li>C: {{printf "%.3f" .Results.SCombustible.C}}</li>
-      <li>S: {{printf "%.3f" .Results.SCombustible.S}}</li>
-      <li>N: {{printf "%.3f" .Results.SCombustible.N}}</li>
-      <li>O: {{printf "%.3f" .Results.SCombustible.O}}</li>
-      <li>A: 0</li>
-      <li>W: 0</li>
-    </ul>
-    <h3>Нижча теплота згоряння:</h3>
-    <ul>
-      <li>QpH: {{printf "%.3f" .Results.QpH}} МДж/кг</li>
-      <li>QdH: {{printf "%.3f" .Results.QdH}} МДж/кг</li>
-      <li>QdafH: {{printf "%.3f" .Results.QdafH}} МДж/кг</li>
-    </ul>
-    {{end}}
+      {{if .Error}}
+      <div class="alert alert-danger mt-3" role="alert">
+        Помилка: {{.Error}}
+      </div>
+      {{end}} {{if .Results}}
+      <div class="mt-4 p-4 border rounded bg-light">
+        <h2 class="h5">Результати</h2>
+        <h3 class="h6 mt-3">Склад сухої маси:</h3>
+        <ul class="list-group mb-3">
+          <li class="list-group-item">H: {{printf "%.3f" .Results.SDry.H}}</li>
+          <li class="list-group-item">C: {{printf "%.3f" .Results.SDry.C}}</li>
+          <li class="list-group-item">S: {{printf "%.3f" .Results.SDry.S}}</li>
+          <li class="list-group-item">N: {{printf "%.3f" .Results.SDry.N}}</li>
+          <li class="list-group-item">O: {{printf "%.3f" .Results.SDry.O}}</li>
+          <li class="list-group-item">A: {{printf "%.3f" .Results.SDry.A}}</li>
+          <li class="list-group-item">W: 0</li>
+        </ul>
+        <h3 class="h6">Склад горючої маси:</h3>
+        <ul class="list-group mb-3">
+          <li class="list-group-item">
+            H: {{printf "%.3f" .Results.SCombustible.H}}
+          </li>
+          <li class="list-group-item">
+            C: {{printf "%.3f" .Results.SCombustible.C}}
+          </li>
+          <li class="list-group-item">
+            S: {{printf "%.3f" .Results.SCombustible.S}}
+          </li>
+          <li class="list-group-item">
+            N: {{printf "%.3f" .Results.SCombustible.N}}
+          </li>
+          <li class="list-group-item">
+            O: {{printf "%.3f" .Results.SCombustible.O}}
+          </li>
+          <li class="list-group-item">A: 0</li>
+          <li class="list-group-item">W: 0</li>
+        </ul>
+        <h3 class="h6">Нижча теплота згоряння:</h3>
+        <ul class="list-group">
+          <li class="list-group-item">
+            Q<sub>pH</sub>: {{printf "%.3f" .Results.QpH}} МДж/кг
+          </li>
+          <li class="list-group-item">
+            Q<sub>dH</sub>: {{printf "%.3f" .Results.QdH}} МДж/кг
+          </li>
+          <li class="list-group-item">
+            Q<sub>dafH</sub>: {{printf "%.3f" .Results.QdafH}} МДж/кг
+          </li>
+        </ul>
+      </div>
+      {{end}}
 
-    <p><a href="/mazut">Перейти до калькулятора Мазуту</a></p>
+      <div class="mt-4 text-center">
+        <a href="/mazut" class="btn btn-outline-secondary"
+          >Перейти до калькулятора Мазуту</a
+        >
+      </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
   </body>
 </html>

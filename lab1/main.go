@@ -96,9 +96,6 @@ func calculateComposition(f FuelComposition) (FuelResults, error) {
 
 // Розрахунок для мазуту
 func calculateMazutComposition(f MazutComposition) (MazutResults, error) {
-	if (f.C + f.H + f.O + f.S + f.V + f.W + f.A) > 100 {
-		return MazutResults{}, fmt.Errorf("сумарний відсоток компонентів перевищує 100")
-	}
 
 	Kp := (100.0 - f.W - f.A) / 100.0
 	mP := MazutComposition{
@@ -150,13 +147,13 @@ func handleFuel(w http.ResponseWriter, r *http.Request) {
 	// Дефолтні значення (наприклад, варіант 4)
 	data := PageData{
 		Input: FuelComposition{
-			H: 4.7,
-			C: 88.2,
-			S: 0.3,
-			N: 1.5,
-			O: 0.7,
-			W: 3.5,
-			A: 1.1,
+			H: 3.4,
+            C: 70.6,
+            S: 2.7,
+            N: 1.2,
+            O: 1.9,
+            W: 5.0,
+            A: 15.2,
 		},
 	}
 
@@ -202,14 +199,14 @@ func handleMazut(w http.ResponseWriter, r *http.Request) {
 	// Дефолтні значення
 	data := PageData{
 		Input: MazutComposition{
-			C:    88.2,
-			H:    4.7,
-			O:    0.7,
-			S:    0.3,
-			V:    0.0,
-			W:    3.5,
-			A:    1.1,
-			Qdaf: 20.6,
+			H:    11.20,  // Водень, %
+			C:    85.50,  // Вуглець, %
+			S:    2.50,   // Сірка, %
+			O:    0.80,   // Кисень, %
+			V:    0.00,   // Ванадій (за потреби перерахувати mg/kg у %)
+			W:    0.00,   // Волога, %
+			A:    1.50,   // Зола, %
+			Qdaf: 40.40,   // Нижча теплота згоряння горючої маси, МДж/кг
 		},
 	}
 
