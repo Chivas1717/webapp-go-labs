@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Калькулятор Твердого Палива</title>
+  </head>
+  <body>
+    <h1>Калькулятор Твердого Палива</h1>
+    <form method="post" action="/fuel">
+      <label
+        >H (Водень): <input type="text" name="H" value="{{printf "%.2f"
+        .Input.H}}"></label
+      ><br />
+      <label
+        >C (Вуглець): <input type="text" name="C" value="{{printf "%.2f"
+        .Input.C}}"></label
+      ><br />
+      <label
+        >S (Сірка): <input type="text" name="S" value="{{printf "%.2f"
+        .Input.S}}"></label
+      ><br />
+      <label
+        >N (Азот): <input type="text" name="N" value="{{printf "%.2f"
+        .Input.N}}"></label
+      ><br />
+      <label
+        >O (Кисень): <input type="text" name="O" value="{{printf "%.2f"
+        .Input.O}}"></label
+      ><br />
+      <label
+        >W (Волога): <input type="text" name="W" value="{{printf "%.2f"
+        .Input.W}}"></label
+      ><br />
+      <label
+        >A (Зола): <input type="text" name="A" value="{{printf "%.2f"
+        .Input.A}}"></label
+      ><br />
+      <input type="submit" value="Обчислити" />
+    </form>
+
+    {{if .Error}}
+    <p style="color: red">Помилка: {{.Error}}</p>
+    {{end}} {{if .Results}}
+    <h2>Результати:</h2>
+    <h3>Склад сухої маси:</h3>
+    <ul>
+      <li>H: {{printf "%.3f" .Results.SDry.H}}</li>
+      <li>C: {{printf "%.3f" .Results.SDry.C}}</li>
+      <li>S: {{printf "%.3f" .Results.SDry.S}}</li>
+      <li>N: {{printf "%.3f" .Results.SDry.N}}</li>
+      <li>O: {{printf "%.3f" .Results.SDry.O}}</li>
+      <li>A: {{printf "%.3f" .Results.SDry.A}}</li>
+      <li>W: 0</li>
+    </ul>
+    <h3>Склад горючої маси:</h3>
+    <ul>
+      <li>H: {{printf "%.3f" .Results.SCombustible.H}}</li>
+      <li>C: {{printf "%.3f" .Results.SCombustible.C}}</li>
+      <li>S: {{printf "%.3f" .Results.SCombustible.S}}</li>
+      <li>N: {{printf "%.3f" .Results.SCombustible.N}}</li>
+      <li>O: {{printf "%.3f" .Results.SCombustible.O}}</li>
+      <li>A: 0</li>
+      <li>W: 0</li>
+    </ul>
+    <h3>Нижча теплота згоряння:</h3>
+    <ul>
+      <li>QpH: {{printf "%.3f" .Results.QpH}} МДж/кг</li>
+      <li>QdH: {{printf "%.3f" .Results.QdH}} МДж/кг</li>
+      <li>QdafH: {{printf "%.3f" .Results.QdafH}} МДж/кг</li>
+    </ul>
+    {{end}}
+
+    <p><a href="/mazut">Перейти до калькулятора Мазуту</a></p>
+  </body>
+</html>

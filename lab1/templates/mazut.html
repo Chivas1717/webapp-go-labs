@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Калькулятор Мазуту</title>
+  </head>
+  <body>
+    <h1>Калькулятор Мазуту</h1>
+    <form method="post" action="/mazut">
+      <label
+        >C (Вуглець): <input type="text" name="C" value="{{printf "%.2f"
+        .Input.C}}"></label
+      ><br />
+      <label
+        >H (Водень): <input type="text" name="H" value="{{printf "%.2f"
+        .Input.H}}"></label
+      ><br />
+      <label
+        >O (Кисень): <input type="text" name="O" value="{{printf "%.2f"
+        .Input.O}}"></label
+      ><br />
+      <label
+        >S (Сірка): <input type="text" name="S" value="{{printf "%.2f"
+        .Input.S}}"></label
+      ><br />
+      <label
+        >V (Ванадій): <input type="text" name="V" value="{{printf "%.2f"
+        .Input.V}}"></label
+      ><br />
+      <label
+        >W (Волога): <input type="text" name="W" value="{{printf "%.2f"
+        .Input.W}}"></label
+      ><br />
+      <label
+        >A (Зола): <input type="text" name="A" value="{{printf "%.2f"
+        .Input.A}}"></label
+      ><br />
+      <label
+        >Qdaf (МДж/кг): <input type="text" name="Qdaf" value="{{printf "%.2f"
+        .Input.Qdaf}}"></label
+      ><br />
+      <input type="submit" value="Обчислити" />
+    </form>
+
+    {{if .Error}}
+    <p style="color: red">Помилка: {{.Error}}</p>
+    {{end}} {{if .Results}}
+    <h2>Результати:</h2>
+    <h3>Склад горючої маси:</h3>
+    <ul>
+      <li>C: {{printf "%.3f" .Results.Combustible.C}}</li>
+      <li>H: {{printf "%.3f" .Results.Combustible.H}}</li>
+      <li>O: {{printf "%.3f" .Results.Combustible.O}}</li>
+      <li>S: {{printf "%.3f" .Results.Combustible.S}}</li>
+      <li>V: {{printf "%.3f" .Results.Combustible.V}}</li>
+      <li>W: {{printf "%.3f" .Results.Combustible.W}}</li>
+      <li>A: {{printf "%.3f" .Results.Combustible.A}}</li>
+    </ul>
+    <h3>Нижча теплота згоряння:</h3>
+    <p>Qp = {{printf "%.3f" .Results.Qp}} МДж/кг</p>
+    {{end}}
+
+    <p><a href="/fuel">Перейти до калькулятора Твердого Палива</a></p>
+  </body>
+</html>
