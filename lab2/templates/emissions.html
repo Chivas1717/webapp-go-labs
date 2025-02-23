@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="uk">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Розрахунок валових викидів</title>
+    <!-- Підключення Bootstrap 5 з CDN -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        background-color: #f8f9fa;
+      }
+      pre {
+        background-color: #e9ecef;
+        padding: 1rem;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container py-4">
+      <h1 class="text-center mb-4">Калькулятор валових викидів</h1>
+
+      <form
+        method="POST"
+        action="/emissions"
+        class="border p-4 rounded bg-white shadow-sm"
+      >
+        <div class="mb-3">
+          <label for="coal" class="form-label">Кількість вугілля (т):</label>
+          <input
+            type="text"
+            class="form-control"
+            id="coal"
+            name="coal"
+            value="{{.CoalInput}}"
+          />
+        </div>
+        <div class="mb-3">
+          <label for="fuelOil" class="form-label">Кількість мазуту (т):</label>
+          <input
+            type="text"
+            class="form-control"
+            id="fuelOil"
+            name="fuelOil"
+            value="{{.FuelOilInput}}"
+          />
+        </div>
+        <div class="mb-3">
+          <label for="gas" class="form-label"
+            >Кількість природного газу (тис. м³):</label
+          >
+          <input
+            type="text"
+            class="form-control"
+            id="gas"
+            name="gas"
+            value="{{.GasInput}}"
+          />
+        </div>
+        <button type="submit" class="btn btn-primary w-100">Обчислити</button>
+      </form>
+
+      {{if .Error}}
+      <div class="alert alert-danger mt-3">{{.Error}}</div>
+      {{end}} {{if .CalculationResult}}
+      <div class="alert alert-success mt-3">
+        <pre class="mb-0">{{.CalculationResult}}</pre>
+      </div>
+      {{end}}
+    </div>
+
+    <!-- Підключення Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  </body>
+</html>
