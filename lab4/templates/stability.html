@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="uk">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Термічна стійкість</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div class="container py-4">
+      <h2 class="mb-4">Перевірка термічної стійкості</h2>
+      <form method="POST" action="/stability" class="mb-3">
+        <div class="mb-3">
+          <label for="current" class="form-label">Струм (A):</label>
+          <input
+            type="text"
+            class="form-control"
+            id="current"
+            name="current"
+            placeholder="Введіть струм"
+            value="100"
+          />
+        </div>
+        <div class="mb-3">
+          <label for="duration" class="form-label">Тривалість (с):</label>
+          <input
+            type="text"
+            class="form-control"
+            id="duration"
+            name="duration"
+            placeholder="Введіть тривалість"
+            value="50"
+          />
+        </div>
+        <button type="submit" class="btn btn-primary">Обчислити</button>
+      </form>
+      {{if .}}
+      <div class="alert alert-info">{{.}}</div>
+      {{end}}
+      <a href="/" class="btn btn-secondary mt-3">Повернутися до меню</a>
+    </div>
+  </body>
+</html>
