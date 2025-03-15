@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="uk">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Лабораторна 5 – Завдання 2</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <style>
+      pre {
+        background-color: #e9ecef;
+        padding: 1rem;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container py-4">
+      <h2 class="mb-4">
+        Завдання 2: Розрахунок недовідпущення енергії та збитків
+      </h2>
+      <form method="POST" action="/task2" class="border p-3 bg-white shadow-sm">
+        <div class="row mb-3">
+          <div class="col">
+            <label for="omega" class="form-label">omega:</label>
+            <input
+              type="text"
+              class="form-control"
+              id="omega"
+              name="omega"
+              value="{{.OmegaInput}}"
+            />
+          </div>
+          <div class="col">
+            <label for="tb" class="form-label">tb (год):</label>
+            <input
+              type="text"
+              class="form-control"
+              id="tb"
+              name="tb"
+              value="{{.TbInput}}"
+            />
+          </div>
+        </div>
+        <div class="row mb-3">
+          <div class="col">
+            <label for="pm" class="form-label">Pm (кВт):</label>
+            <input
+              type="text"
+              class="form-control"
+              id="pm"
+              name="pm"
+              value="{{.PmInput}}"
+            />
+          </div>
+          <div class="col">
+            <label for="tm" class="form-label">Tm (доба/інтервал):</label>
+            <input
+              type="text"
+              class="form-control"
+              id="tm"
+              name="tm"
+              value="{{.TmInput}}"
+            />
+          </div>
+        </div>
+        <div class="row mb-3">
+          <div class="col">
+            <label for="kp" class="form-label">kp:</label>
+            <input
+              type="text"
+              class="form-control"
+              id="kp"
+              name="kp"
+              value="{{.KpInput}}"
+            />
+          </div>
+          <div class="col">
+            <label for="zPerA" class="form-label">zPerA (грн/кВт·год):</label>
+            <input
+              type="text"
+              class="form-control"
+              id="zPerA"
+              name="zPerA"
+              value="{{.ZAInput}}"
+            />
+          </div>
+          <div class="col">
+            <label for="zPerP" class="form-label">zPerP (грн/кВт·год):</label>
+            <input
+              type="text"
+              class="form-control"
+              id="zPerP"
+              name="zPerP"
+              value="{{.ZPInput}}"
+            />
+          </div>
+        </div>
+        <button type="submit" class="btn btn-primary w-100">Обчислити</button>
+      </form>
+
+      {{if .Error}}
+      <div class="alert alert-danger mt-3">{{.Error}}</div>
+      {{end}} {{if .Result}}
+      <div class="alert alert-success mt-3">
+        <pre class="mb-0">{{.Result}}</pre>
+      </div>
+      {{end}}
+
+      <a href="/" class="btn btn-secondary mt-3">На головну</a>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  </body>
+</html>
